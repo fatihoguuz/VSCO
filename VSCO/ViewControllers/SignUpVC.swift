@@ -29,7 +29,7 @@ class SignUpVC: UIViewController {
             
             Auth.auth().createUser(withEmail: emailText.text!, password: passwordText.text!){ (auth,error) in
                 if error != nil {
-                    self.makeAlert(title: "ERROR ", message: error?.localizedDescription ?? "error")
+                    self.makeAlert( message: error?.localizedDescription ?? "error")
                 }else{
                     let fireStore = Firestore.firestore()
                     let userDictionary = ["Email":self.emailText.text!,"Username": self.usernameText.text!] as [String: Any]
@@ -43,14 +43,9 @@ class SignUpVC: UIViewController {
             }
             
         }else {
-            self.makeAlert(title: "ERROR", message: "Username/Email/Password ?")
+            self.makeAlert( message: "Username/Email/Password ?")
             
         }
     }
-    func makeAlert(title: String , message: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
-        let okButton = UIAlertAction(title: "OK", style: UIAlertAction.Style.default , handler:  nil)
-        alert.addAction(okButton)
-        self.present(alert,animated: true , completion: nil)
-    }
+  
 }

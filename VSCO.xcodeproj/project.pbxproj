@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -18,6 +18,12 @@
 		3D21E7582C4C3E300047FC05 /* Snap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D21E7572C4C3E300047FC05 /* Snap.swift */; };
 		3D21E75B2C4D11630047FC05 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 3D21E75A2C4D11630047FC05 /* SDWebImage */; };
 		3D21E75D2C4D11630047FC05 /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 3D21E75C2C4D11630047FC05 /* SDWebImageMapKit */; };
+		3D86DC202C4E7CC000D1673C /* AlertC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D86DC1F2C4E7CC000D1673C /* AlertC.swift */; };
+		3D86DC232C4ED28E00D1673C /* ImageSlideshow in Frameworks */ = {isa = PBXBuildFile; productRef = 3D86DC222C4ED28E00D1673C /* ImageSlideshow */; };
+		3D86DC252C4ED28E00D1673C /* ImageSlideshow/Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 3D86DC242C4ED28E00D1673C /* ImageSlideshow/Alamofire */; };
+		3D86DC272C4ED28E00D1673C /* ImageSlideshow/Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 3D86DC262C4ED28E00D1673C /* ImageSlideshow/Kingfisher */; };
+		3D86DC292C4ED28E00D1673C /* ImageSlideshow/SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 3D86DC282C4ED28E00D1673C /* ImageSlideshow/SDWebImage */; };
+		3D86DC2B2C4ED31A00D1673C /* SnapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D86DC2A2C4ED31A00D1673C /* SnapVC.swift */; };
 		3D96578A2C317A63002A260A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9657892C317A63002A260A /* AppDelegate.swift */; };
 		3D96578C2C317A63002A260A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D96578B2C317A63002A260A /* SceneDelegate.swift */; };
 		3D96578E2C317A63002A260A /* LaunchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D96578D2C317A63002A260A /* LaunchVC.swift */; };
@@ -45,6 +51,8 @@
 		3D21E74F2C4A9A510047FC05 /* UserSingleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSingleton.swift; sourceTree = "<group>"; };
 		3D21E7552C4C29DB0047FC05 /* MainMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuCell.swift; sourceTree = "<group>"; };
 		3D21E7572C4C3E300047FC05 /* Snap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Snap.swift; sourceTree = "<group>"; };
+		3D86DC1F2C4E7CC000D1673C /* AlertC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertC.swift; sourceTree = "<group>"; };
+		3D86DC2A2C4ED31A00D1673C /* SnapVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapVC.swift; sourceTree = "<group>"; };
 		3D9657862C317A62002A260A /* VSCO.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VSCO.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D9657892C317A63002A260A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3D96578B2C317A63002A260A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -63,9 +71,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D86DC292C4ED28E00D1673C /* ImageSlideshow/SDWebImage in Frameworks */,
+				3D86DC252C4ED28E00D1673C /* ImageSlideshow/Alamofire in Frameworks */,
+				3D86DC272C4ED28E00D1673C /* ImageSlideshow/Kingfisher in Frameworks */,
 				3D9657AE2C317F4E002A260A /* CoreData.framework in Frameworks */,
 				3D9657A52C317EF0002A260A /* FirebaseDatabase in Frameworks */,
 				3D9657A72C317EF0002A260A /* FirebaseFirestore in Frameworks */,
+				3D86DC232C4ED28E00D1673C /* ImageSlideshow in Frameworks */,
 				3D9657B32C32D5C1002A260A /* GoogleSignInSwift in Frameworks */,
 				3D21E75B2C4D11630047FC05 /* SDWebImage in Frameworks */,
 				3D9657A12C317EF0002A260A /* FirebaseAnalytics in Frameworks */,
@@ -90,6 +102,7 @@
 				3D21E7552C4C29DB0047FC05 /* MainMenuCell.swift */,
 				3D21E74A2C4A86A10047FC05 /* UploadVC.swift */,
 				3D21E74C2C4A86EF0047FC05 /* SettingsVC.swift */,
+				3D86DC2A2C4ED31A00D1673C /* SnapVC.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -109,6 +122,7 @@
 				3D21E74F2C4A9A510047FC05 /* UserSingleton.swift */,
 				3D21E7442C4805950047FC05 /* UserData.swift */,
 				3D21E7572C4C3E300047FC05 /* Snap.swift */,
+				3D86DC1F2C4E7CC000D1673C /* AlertC.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -180,6 +194,10 @@
 				3D21E7532C4BDF340047FC05 /* FirebaseStorageCombine-Community */,
 				3D21E75A2C4D11630047FC05 /* SDWebImage */,
 				3D21E75C2C4D11630047FC05 /* SDWebImageMapKit */,
+				3D86DC222C4ED28E00D1673C /* ImageSlideshow */,
+				3D86DC242C4ED28E00D1673C /* ImageSlideshow/Alamofire */,
+				3D86DC262C4ED28E00D1673C /* ImageSlideshow/Kingfisher */,
+				3D86DC282C4ED28E00D1673C /* ImageSlideshow/SDWebImage */,
 			);
 			productName = VSCO;
 			productReference = 3D9657862C317A62002A260A /* VSCO.app */;
@@ -213,6 +231,7 @@
 				3D96579F2C317EEF002A260A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				3D9657AF2C32D5C1002A260A /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 				3D21E7592C4D11630047FC05 /* XCRemoteSwiftPackageReference "SDWebImage" */,
+				3D86DC212C4ED28E00D1673C /* XCLocalSwiftPackageReference "../../../Downloads/ImageSlideshow-master" */,
 			);
 			productRefGroup = 3D9657872C317A62002A260A /* Products */;
 			projectDirPath = "";
@@ -246,7 +265,9 @@
 				3D21E7562C4C29DB0047FC05 /* MainMenuCell.swift in Sources */,
 				3D21E7452C4805950047FC05 /* UserData.swift in Sources */,
 				3D9657B52C32DA48002A260A /* SignUpVC.swift in Sources */,
+				3D86DC2B2C4ED31A00D1673C /* SnapVC.swift in Sources */,
 				3D96578E2C317A63002A260A /* LaunchVC.swift in Sources */,
+				3D86DC202C4E7CC000D1673C /* AlertC.swift in Sources */,
 				3D96578A2C317A63002A260A /* AppDelegate.swift in Sources */,
 				3D96578C2C317A63002A260A /* SceneDelegate.swift in Sources */,
 				3D21E7432C47E3790047FC05 /* SignInVC.swift in Sources */,
@@ -475,6 +496,13 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCLocalSwiftPackageReference section */
+		3D86DC212C4ED28E00D1673C /* XCLocalSwiftPackageReference "../../../Downloads/ImageSlideshow-master" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = "../../../Downloads/ImageSlideshow-master";
+		};
+/* End XCLocalSwiftPackageReference section */
+
 /* Begin XCRemoteSwiftPackageReference section */
 		3D21E7592C4D11630047FC05 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
 			isa = XCRemoteSwiftPackageReference;
@@ -517,6 +545,22 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3D21E7592C4D11630047FC05 /* XCRemoteSwiftPackageReference "SDWebImage" */;
 			productName = SDWebImageMapKit;
+		};
+		3D86DC222C4ED28E00D1673C /* ImageSlideshow */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ImageSlideshow;
+		};
+		3D86DC242C4ED28E00D1673C /* ImageSlideshow/Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ImageSlideshow/Alamofire;
+		};
+		3D86DC262C4ED28E00D1673C /* ImageSlideshow/Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ImageSlideshow/Kingfisher;
+		};
+		3D86DC282C4ED28E00D1673C /* ImageSlideshow/SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ImageSlideshow/SDWebImage;
 		};
 		3D9657A02C317EF0002A260A /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;

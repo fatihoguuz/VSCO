@@ -29,17 +29,11 @@ class SignInVC: UIViewController {
             
             Auth.auth().signIn(withEmail: emailText.text!, password: passwordText.text!){ (result,error) in
                 if error != nil {
-                    self.makeAlert(title: "ERROR ", message: error?.localizedDescription ?? "error")
+                    self.makeAlert(message: error?.localizedDescription ?? "error")
                 }else{
                     self.performSegue(withIdentifier: "toFeedVC", sender: nil)
             }
         }
         }
-    }
-    func makeAlert(title: String , message: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
-        let okButton = UIAlertAction(title: "OK", style: UIAlertAction.Style.default , handler:  nil)
-        alert.addAction(okButton)
-        self.present(alert,animated: true , completion: nil)
     }
 }

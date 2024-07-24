@@ -12,10 +12,6 @@ import Firebase
 class UploadVC: UIViewController, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
     
     @IBOutlet weak var uploadImageView: UIImageView!
-    
-  
-    
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -38,85 +34,87 @@ class UploadVC: UIViewController, UIImagePickerControllerDelegate & UINavigation
         }
 
     @IBAction func uploadButton(_ sender: Any) {
+        guard let currentUser = Auth.auth().currentUser else {
+            self.makeAlert( message: "User not authenticated")
+            return
+        }
         
-    //Storage
+        let uid = currentUser.uid
+        
+        // Storage
         let storage = Storage.storage()
-        let storageReferange = storage.reference()
+        let storageReference = storage.reference()
         
-        let mediaFolder = storageReferange.child("media")
+        let mediaFolder = storageReference.child("media")
         
         if let data = uploadImageView.image?.jpegData(compressionQuality: 0.5) {
-            let uuid = UUID().uuidString
-            let imageReferange = mediaFolder.child("\(uuid).jpeg")
-
-            imageReferange.putData(data,metadata: nil) { metadata, error in
-                if error != nil {
-                    self.makeAlert(title: "Error", message: error?.localizedDescription ?? "error")
-                }else {
-                    imageReferange.downloadURL { (url, error) in
-                        if error != nil {
-                            let imageUrl = url?.absoluteString
-                            
-                    //Firestore
-                            let fireStore = Firestore.firestore()
-                            
-                            fireStore.collection("Snaps").whereField("snapOwner", isEqualTo: UserSingleton.sharedUserInfo.username).getDocuments { (snapshot, error) in
-                                if error != nil {
-                                    self.makeAlert(title: "Error", message: error?.localizedDescription ?? "Error")
-                                }else {
-                                    print("")
-                                    if snapshot?.isEmpty == false && snapshot != nil {
-                                        for document in snapshot!.documents {
-                                            let documentId = document.documentID
-                                            
-                                            if var imageUrlArray = document.get("imageUrlArray") as? [String] {
-                                                imageUrlArray.append(imageUrl!)
-                                                let additionalDictionary = ["imageUrlArray": imageUrlArray] as [String: Any]
-                                                fireStore.collection("Snaps").document(documentId).setData(additionalDictionary, merge: true) { (error) in
-                                                    if error == nil {
-                                                        self.tabBarController?.selectedIndex = 0
-                                                        self.uploadImageView.image = UIImage(named: "shine")
-                                                        print("test1")
-                                                    }
-                                                }
-                                                
-                                            }
-                                        }
-                                    }else{
-                                        let snapDictionary = [ "imageUrlArray": [imageUrl!] , "snapOwner": UserSingleton.sharedUserInfo.username, "date": FieldValue.serverTimestamp()]
-                                        as [String : Any]
-                                        print("test2")
-                                        
-                                        fireStore.collection("Snaps").addDocument(data: snapDictionary) {(error) in
-                                            if error != nil {
-                                                self.makeAlert(title: "Error", message: error?.localizedDescription ?? "Error")
-                                            }else {
-                                                self.tabBarController?.selectedIndex = 0
-                                                self.uploadImageView.image = UIImage(named: "shine")
-                                            }
+            let uuid = UUID().uuidString // Her fotoğraf için benzersiz bir UUID
+            let imageReference = mediaFolder.child("\(uuid).jpeg")
+            
+            imageReference.putData(data, metadata: nil) { metadata, error in
+                if let error = error {
+                    self.makeAlert( message: error.localizedDescription)
+                    return
+                }
+                
+                imageReference.downloadURL { url, error in
+                    if let error = error {
+                        self.makeAlert( message: error.localizedDescription)
+                        return
+                    }
+                    
+                    guard let imageUrl = url?.absoluteString else {
+                        self.makeAlert( message: "URL could not be retrieved")
+                        return
+                    }
+                    
+                    // Firestore
+                    let fireStore = Firestore.firestore()
+                    
+                    // Kullanıcıya ait belgeyi UID ile sorgula
+                    fireStore.collection("Snaps").whereField("userID", isEqualTo: uid).getDocuments { snapshot, error in
+                        if let error = error {
+                            self.makeAlert(message: error.localizedDescription)
+                            return
+                        }
+                        
+                        if let snapshot = snapshot, !snapshot.isEmpty {
+                            for document in snapshot.documents {
+                                let documentId = document.documentID
+                                
+                                if var imageUrlArray = document.get("imageUrlArray") as? [String] {
+                                    imageUrlArray.append(imageUrl)
+                                    let additionalDictionary = ["imageUrlArray": imageUrlArray] as [String: Any]
+                                    fireStore.collection("Snaps").document(documentId).setData(additionalDictionary, merge: true) { error in
+                                        if let error = error {
+                                            self.makeAlert(message: error.localizedDescription)
+                                        } else {
+                                            self.tabBarController?.selectedIndex = 0
+                                            self.uploadImageView.image = UIImage(named: "shine")
                                         }
                                     }
                                 }
                             }
+                        } else {
+                            let snapDictionary: [String: Any] = [
+                                "imageUrlArray": [imageUrl],
+                                "userID": uid,
+                                "date": FieldValue.serverTimestamp(),
+                                "userName": UserSingleton.sharedUserInfo.username
+                            ]
                             
-                            
-                     
+                            fireStore.collection("Snaps").addDocument(data: snapDictionary) { error in
+                                if let error = error {
+                                    self.makeAlert(message: error.localizedDescription)
+                                } else {
+                                    self.tabBarController?.selectedIndex = 0
+                                    self.uploadImageView.image = UIImage(named: "shine")
+                                }
+                            }
                         }
                     }
                 }
             }
         }
-        
-        
-        
     }
-    
-
-    func makeAlert(title: String , message: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
-        let okButton = UIAlertAction(title: "OK", style: UIAlertAction.Style.default , handler:  nil)
-        alert.addAction(okButton)
-        self.present(alert,animated: true , completion: nil)
-    }
-    
 }
